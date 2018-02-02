@@ -27,7 +27,10 @@ public class InterfacciaProfessore {
         this.idProf=this.c++;
     }
 
-   // public BeanRisposta prenotazioneConId() {   }
+    public BeanRisposta prenotazioneConId(BeanSpecificheConferenza beanInfo, BeanIdAula beanId) {
+        this.controllerPrenotazioni = new GestoreRichieste(this);
+        return this.controllerPrenotazioni.gestioneRichieste(beanInfo, beanId);
+    }
 
     public BeanRisposta prenotazioneConCaratteristiche(BeanSpecificheConferenza beanConf, BeanCaratteristicheAula beanCarAula) {
 

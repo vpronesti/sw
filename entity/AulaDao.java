@@ -2,6 +2,7 @@ package entity;
 
 
 import bean.BeanCaratteristicheAula;
+import bean.BeanIdAula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,12 @@ public class AulaDao {
         //classe singleto
     }
 
+    public List<Aula> queryConId(int idAula) {
+        /* dovrebbe utilizzare jdbc per controllare l'esistenza dell' aula*/
+        List<Aula> aule = new ArrayList<>();
+        return aule;
+    }
+    
     public List<Aula> queryConCaratteristiche(BeanCaratteristicheAula beanCarAula) {
         //jdbc sql query
         //istanziare aule da risultato query e ritornarle come vettore

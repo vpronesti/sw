@@ -25,6 +25,38 @@ public class GestoreRichieste {
         this.gestorePrenotazioni=new ArrayList<GestorePrenotazioneConferenza>();
         this.dateNonDisponibili=new ArrayList<>();
     }
+    
+    public BeanRisposta gestioneRichieste(BeanSpecificheConferenza beanInfo, 
+            BeanIdAula beanId) {
+        this.dataInizio = beanInfo.getDataInizio();
+        /* si deve fare la differenza tra datafine e datainizio per ottenere
+         durataEvento
+         */
+        for (int i = 0; i <= durataEvento; i++) {
+            BeanSpecificheConferenza beanTemp = null;
+            try {
+                beanTemp = beanInfo.getClone();
+            } catch (Exception e) {
+                E.printSatckTrace();
+            }
+            beanTemp.setDataFine(beanInfo.getDataInizio().plusDays(i));
+            beanTemp.setDataInizio(beanInfo.getDataInizio().plusDays(i));
+            GestorePrenotazioneConferenza gestorePrenTemp = 
+                    new GestorePrenotazioneConferenza();
+            gestorePrenotazioni.add(gestorePrenTemp);
+            
+            /* invece di passare come parametro beanId, ho preferito passare 
+            direttamente il'id dell'aula per il giorno in questione (FORSE 
+            SAREBBE MEGLIO PASSARE L'INTERO BEAN DAL PUNTO DI VISTA OO) 
+            perche' altrimenti avrei avuto bisogno di passare un intero per 
+            specificare la posizione all'interno della lista del bean*/
+            gestorePrenTemp.ricercaAulaConId(beanId.getIdAule().get(i), 
+                    beanTemp);
+        }
+        this.joinPrenotazioni();
+        return this.creaRisposta();
+    }
+    
     public BeanRisposta gestioneRichieste(BeanCaratteristicheAula beanCaratteristiche,BeanSpecificheConferenza beanInfoTemporali){
         //separare richieste su piu giorni analizzando beanSpecificehConf
         this.dataInizio=beanInfoTemporali.getDataInizio();

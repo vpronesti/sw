@@ -17,9 +17,22 @@ public class GestorePrenotazioneConferenza {
         this.aule = new ArrayList<Aula>();
     }
 
-    //public Aula ricercaAulaConId() { // paramtero id
-
-    //}
+    public Aula ricercaAulaConId(int idAula, 
+            BeanSpecificheConferenza beanInfo) {
+        aule = AulaDao.getIstance().queryConId(idAula);
+        if (!aule.isEmpty()) { // se l'id inserito esiste
+            /* se l'interfaccia grafica consentisse di scegliere tra un numero 
+            limitato e predefinito di opzioni, 
+            la verifica non sarebbe necessaria
+            */
+        } 
+        // bisogna segnalare una condizione di errore magari un'eccezione
+    }
+    
+    private boolean verificaDisponibilitaId() {
+        
+    }
+    
     public Prenotazione getPrenotazione(){
         return this.prenotazione;
     }
@@ -36,8 +49,6 @@ public class GestorePrenotazioneConferenza {
             //verificaAUleconCaratteristiche (ottenendo
         }
     }
-
-    //private boolean verificaDisponibilitaId() {
 
 
 
