@@ -1,27 +1,53 @@
 package boundary;
 
-import control.GestoreLogin;
-import control.GestorePrenotazioneConferenza;
-import entity.Prenotazione;
-
+import bean.*;
+import controller.GestoreLogin;
+import controller.GestoreRichieste;
 public class InterfacciaProfessore {
-    private GestorePrenotazioneConferenza controllerPrenotazioni = null;
+    private GestoreRichieste controllerPrenotazioni;
     private boolean isLog = false;
     private GestoreLogin controllerLogin;
-    
-    private boolean ControlloSintattico() {
-        
-    }
-    
-    public void login() {
-        
+    private BeanRisposta beanRisposta;
+    private int idProf;
+    //TEST
+    public static int c=0;
+
+    public InterfacciaProfessore() {
+
+
+
     }
 
-    public Prenotazione prenotazioneConId() {
-        
+
+    //private boolean ControlloSintattico() {   }
+
+    public void login() {
+        //TEST
+        this.isLog=true;
+        this.idProf=this.c++;
     }
-    
-    public Prenotazione prenotazioneConCaratteristiche() {
-        
+
+   // public BeanRisposta prenotazioneConId() {   }
+
+    public BeanRisposta prenotazioneConCaratteristiche(BeanSpecificheConferenza beanConf, BeanCaratteristicheAula beanCarAula) {
+
+
+        this.controllerPrenotazioni = new GestoreRichieste(this);
+        BeanRisposta beanRisposta = null;
+        return this.controllerPrenotazioni.gestioneRichieste(beanCarAula, beanConf);
+        //gestisci la risposta inoltrandola alla grafica etc... xD
+        /*if(beanRisposta.isValid()) {
+            return true;
+
+        }
+        else {
+            return false;
+        }*/
+
+
+    }
+
+    public BeanRisposta getBeanRisposta() {
+        return this.beanRisposta;
     }
 }

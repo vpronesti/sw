@@ -1,67 +1,60 @@
 package entity;
-
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public abstract class Prenotazione {
     private int idAula;
-    private Date data;
+    private LocalDateTime data;
     private int idPrenotazione;
-    private FasciaOraria orario;
+    private  fasciaOraria fasciaOraria;
+    //fascia oraria 0<-->3
 
-    /**
-     * @return the idAula
-     */
+    public Prenotazione(int idAula, LocalDateTime data, int idPrenotazione,  fasciaOraria fascia) {
+        this.idAula = idAula;
+        this.data = data;
+        this.idPrenotazione = idPrenotazione;
+        this.fasciaOraria = fascia;
+    }
+    public Prenotazione(int idAula, LocalDateTime data,  fasciaOraria fascia) {
+        //costruttore per Oggetti prenotazione senza id (non ancora in strato di persistenza
+        this.idAula = idAula;
+        this.data = data;
+        this.idPrenotazione = -1;
+        this.fasciaOraria = fascia;
+    }
+
+
     public int getIdAula() {
         return idAula;
     }
 
-    /**
-     * @param idAula the idAula to set
-     */
     public void setIdAula(int idAula) {
         this.idAula = idAula;
     }
 
-    /**
-     * @return the data
-     */
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    /**
-     * @param data the data to set
-     */
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
-    /**
-     * @return the idPrenotazione
-     */
     public int getIdPrenotazione() {
         return idPrenotazione;
     }
 
-    /**
-     * @param idPrenotazione the idPrenotazione to set
-     */
     public void setIdPrenotazione(int idPrenotazione) {
         this.idPrenotazione = idPrenotazione;
     }
 
-    /**
-     * @return the orario
-     */
-    public FasciaOraria getOrario() {
-        return orario;
+    public fasciaOraria getFasciaOraria() {
+        return fasciaOraria;
     }
 
-    /**
-     * @param orario the orario to set
-     */
-    public void setOrario(FasciaOraria orario) {
-        this.orario = orario;
+    public void setFasciaOraria(fasciaOraria fasciaOraria) {
+        this.fasciaOraria = fasciaOraria;
     }
-    
+    //TODO deve essere una enum
+
 }

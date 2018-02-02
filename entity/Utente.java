@@ -31,5 +31,5 @@ public abstract class Utente {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }
