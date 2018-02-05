@@ -37,7 +37,7 @@ public class GestoreRichieste {
             try {
                 beanTemp = beanInfo.getClone();
             } catch (Exception e) {
-                E.printSatckTrace();
+                e.printStackTrace();
             }
             beanTemp.setDataFine(beanInfo.getDataInizio().plusDays(i));
             beanTemp.setDataInizio(beanInfo.getDataInizio().plusDays(i));
@@ -45,13 +45,7 @@ public class GestoreRichieste {
                     new GestorePrenotazioneConferenza();
             gestorePrenotazioni.add(gestorePrenTemp);
             
-            /* invece di passare come parametro beanId, ho preferito passare 
-            direttamente il'id dell'aula per il giorno in questione (FORSE 
-            SAREBBE MEGLIO PASSARE L'INTERO BEAN DAL PUNTO DI VISTA OO) 
-            perche' altrimenti avrei avuto bisogno di passare un intero per 
-            specificare la posizione all'interno della lista del bean*/
-            gestorePrenTemp.ricercaAulaConId(beanId.getIdAule().get(i), 
-                    beanTemp);
+            gestorePrenTemp.ricercaAulaConId(beanId, beanTemp, i);
         }
         this.joinPrenotazioni();
         return this.creaRisposta();

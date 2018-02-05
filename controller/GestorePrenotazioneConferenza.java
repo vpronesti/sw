@@ -1,6 +1,7 @@
 package controller;
 
 import bean.BeanCaratteristicheAula;
+import bean.BeanIdAula;
 import bean.BeanSpecificheConferenza;
 import entity.*;
 
@@ -17,20 +18,28 @@ public class GestorePrenotazioneConferenza {
         this.aule = new ArrayList<Aula>();
     }
 
-    public Aula ricercaAulaConId(int idAula, 
-            BeanSpecificheConferenza beanInfo) {
-        aule = AulaDao.getIstance().queryConId(idAula);
+    public void ricercaAulaConId(BeanIdAula beanId, 
+            BeanSpecificheConferenza beanInfo, int pos) {
+        aule = AulaDao.getIstance().queryConId(beanId.getIdAule().get(pos));
+        /* in realta' restituisce sempre un solo elemento ma esiste gia' 
+        l'attributo aule usato per le prenotazioni con caratteristiche
+        */
         if (!aule.isEmpty()) { // se l'id inserito esiste
             /* se l'interfaccia grafica consentisse di scegliere tra un numero 
             limitato e predefinito di opzioni, 
             la verifica non sarebbe necessaria
             */
+            this.verificaDisponibilitaId(beanInfo);
         } 
-        // bisogna segnalare una condizione di errore magari un'eccezione
     }
     
-    private boolean verificaDisponibilitaId() {
-        
+    private void verificaDisponibilitaId(BeanSpecificheConferenza beanInfo) {
+        Factory factory = new Factory();
+        Prenotazione prenotazione = factory.createPrenotazioni(1, aule.get(1).getId(), beanInfo);
+        PrenotazioneDao prenotazioneDao = new PrenotazioneDao();
+        if (prenotazioneDao.queryEsistenzaPrenotazioneConferenza(prenotazione)) {
+            this.prenotazione = prenotazione;
+        }
     }
     
     public Prenotazione getPrenotazione(){
@@ -52,6 +61,9 @@ public class GestorePrenotazioneConferenza {
 
 
 
+    /* prenota una sola tra le aule corrispondenti alle caratteristiche 
+    richieste e iserisce la prenotazione nell'attributo prenotazione
+    */
     private void verificaAulaConCaratteristiche(BeanSpecificheConferenza beanSpecificheConferenza) {
         Iterator<Aula> I = this.aule.iterator();
         while(I.hasNext()){
